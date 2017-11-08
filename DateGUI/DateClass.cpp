@@ -135,7 +135,6 @@ void DateClass::incrementDay(int dayLimit) {
 }
 
 DateClass DateClass::operator--() {
-
 	--day;
 
 	if (month == 3)
@@ -158,6 +157,7 @@ void DateClass::decrementDay(int dayTo) {
 	if (month < 1) {
 		--year;
 		month = 12;
+		day = 30;
 	}
 }
 
