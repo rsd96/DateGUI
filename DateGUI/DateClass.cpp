@@ -3,8 +3,6 @@
 #include <algorithm>
 #include <iterator>
 
-int mArray[7] = { 1,3,5,7,8,10,12 };
-
 DateClass::DateClass()
 {
 	year = 0;
@@ -36,8 +34,20 @@ int DateClass::getDay() {
 	return day;
 }
 
+void DateClass::setYear(int y) {
+	this->year = y; 
+}
+
+void DateClass::setMonth(int m) {
+	this->month = m;
+}
+
 int DateClass::getMonth() {
 	return month;
+}
+
+void DateClass::setDay(int d) {
+	this->day = d; 
 }
 
 void DateClass::setDate(int day, int month, int year) {
@@ -94,16 +104,19 @@ istream &operator >> (istream &in, DateClass &right) {
 	return in;
 }
 
+bool DateClass::isMonthsOf30() {
+	int mArray[7] = { 1,3,5,7,8,10,12 };
+	return std::find(begin(mArray), std::end(mArray), month) != std::end(mArray);
+}
+
 DateClass DateClass::operator++() {
 
 	++day;
 
 	if (month == 2)
 		leapYear() ? incrementDay(29) : incrementDay(28);
-	else {
-		bool exists = std::find(begin(mArray), std::end(mArray), month) != std::end(mArray);
-		exists ? incrementDay(30) : incrementDay(31);
-	}
+	else 
+		isMonthsOf30() ? incrementDay(30) : incrementDay(31);
 
 	return *this;
 }
@@ -127,10 +140,9 @@ DateClass DateClass::operator--() {
 
 	if (month == 3)
 		leapYear() ? decrementDay(29) : decrementDay(28);
-	else {
-		bool exists = std::find(begin(mArray), std::end(mArray), month) != std::end(mArray);
-		exists ? decrementDay(31) : decrementDay(30);
-	}
+	else 
+		isMonthsOf30() ? decrementDay(31) : decrementDay(30);
+	
 
 	return *this;
 }

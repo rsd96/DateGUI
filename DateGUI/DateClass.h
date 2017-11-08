@@ -21,6 +21,9 @@ public:
 	int getYear();
 	int getMonth();
 	int getDay();
+	void setYear(int y);
+	void setMonth(int m); 
+	void setDay(int d); 
 	void setDate(int,int,int);
 
 	string DayOfWeek();
@@ -30,6 +33,7 @@ public:
 	bool operator==(DateClass &);
 	friend ostream &operator << (ostream &, DateClass &);
 	friend istream &operator >> (istream &, DateClass &);
+	bool isMonthsOf30(); // checks if the month has 30 days or 31
 	DateClass operator++();
 	void incrementDay(int dayLimit);
 	DateClass operator--();
